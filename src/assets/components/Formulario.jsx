@@ -28,10 +28,8 @@ const Formulario = () => {
 
   return (
     <>
-      <h3>Formulario Ingreso Colaboradores</h3>
-
-      <div className="mantenedor-colaboradores">
-        <form className="formulario" onSubmit={validarDatos}>
+      <div className="col-xs-6 col-md-4">
+        <form onSubmit={validarDatos}>
           {error ? <p>Todos los campos son obligatorios</p> : null}
           {exito ? <p>Ok</p> : null}
           <div className="form-group">
