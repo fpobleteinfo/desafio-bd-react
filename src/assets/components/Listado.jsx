@@ -2,12 +2,11 @@ import React from "react";
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
 
-const Listado = ({ baseColaboradores }) => {
-  const [listaColaboradores, setListaColaboradores] =
-    useState(baseColaboradores);
+const Listado = ({ dataFilter }) => {
 
   return (
     <>
+
       <div className="table-responsive col-md-8">
         <Table striped bordered hover>
           <thead>
@@ -20,7 +19,7 @@ const Listado = ({ baseColaboradores }) => {
             </tr>
           </thead>
           <tbody>
-            {listaColaboradores.map((colaborador) => (
+            {dataFilter.map((colaborador) => (
               <tr key={colaborador.id}>
                 <td>{colaborador.nombre}</td>
                 <td>{colaborador.correo}</td>

@@ -1,29 +1,52 @@
 import React from "react";
 import { useState } from "react";
+import { Alert } from "./Alert";
 
-const Formulario = () => {
+const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
+ 
+
   const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [edad, setEdad] = useState("");
   const [email, setEmail] = useState("");
+  const [edad, setEdad] = useState("");
+  const [cargo, setCargo] = useState("");
+  const [telefono, setTelefono] = useState("");
   const [error, setError] = useState(false);
   const [exito, setExito] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault();
-
-    if (nombre === "" || apellido === "" || edad === "" || email === "") {
+ 
+    if (nombre === "" || email === "" || edad === "" || cargo === "" || telefono === "") {
       setError(true);
-      //alert("Todos los campos son obligatorios");
+      setExito(false);
       return;
     }
-    setExito(true);
 
+    SetData([ 
+        ...data,
+        { id: String(data.length + 1), nombre: nombre, correo: email,edad: edad,cargo: cargo,telefono: telefono },
+      ]);
+
+    //ACA ESTA MI DUDA: YA QUE ME FUNCIONA COMO AMBOS METODOS, usando ...dataFilter y ...data o es lo mismo?
+      SetDataFilter([ 
+        ...dataFilter,
+        { id: String(data.length + 1), nombre: nombre, correo: email,edad: edad,cargo: cargo,telefono: telefono },
+      ]);      
+
+    // IGUAL FUNCIONA?
+    // SetDataFilter([
+    //     ...data,
+    //     { id: String(data.length + 1), nombre, correo: email, edad, cargo, telefono },
+    //   ]);    
+
+    setExito(true);
     setError(false);
     setNombre("");
-    setApellido("");
-    setEdad("");
     setEmail("");
+    setEdad("");
+    setCargo("");
+    setTelefono("");
+
   };
 
   return (
@@ -32,51 +55,62 @@ const Formulario = () => {
         <form onSubmit={validarDatos}>
           {error ? <p>Todos los campos son obligatorios</p> : null}
           {exito ? <p>Ok</p> : null}
-          <div className="form-group">
-            <label>Nombre</label>
+          <div className="mb-3">
             <input
               type="text"
               name="nombre"
               className="form-control"
+              placeholder="Nombre"
               onChange={(e) => setNombre(e.target.value)}
               value={nombre}
             />
           </div>
-          <div className="form-group">
-            <label>Apellido</label>
+          <div className="mb-3">
             <input
               type="text"
-              name="apellido"
+              name="email"
               className="form-control"
-              onChange={(e) => setApellido(e.target.value)}
-              value={apellido}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
-          <div className="form-group">
-            <label>Edad</label>
+          <div className="mb-3">
             <input
               type="text"
               name="edad"
+              placeholder="Edad"
               className="form-control"
               onChange={(e) => setEdad(e.target.value)}
               value={edad}
             />
           </div>
-          <div className="form-group">
-            <label>Email</label>
+          <div className="mb-3">
             <input
               type="text"
-              name="email"
+              name="cargo"
+              placeholder="Cargo"
               className="form-control"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setCargo(e.target.value)}
+              value={cargo}
             />
           </div>
-          <div class="d-grid">
-            <button className="btn btn-dark mt-3" type="submit">
-              Enviar
+          <div className="mb-3">
+            <input
+              type="text"
+              name="telefono"
+              placeholder="Telefono"
+              className="form-control"
+              onChange={(e) => setTelefono(e.target.value)}
+              value={telefono}
+            />
+          </div>
+          <div className="d-grid">
+            <button className="btn btn-dark mb-3" type="submit">
+              Agregar Colaborador
             </button>
           </div>
+          <Alert/>
         </form>
       </div>
     </>
