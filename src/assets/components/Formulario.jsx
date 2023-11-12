@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Alert } from "./Alert";
 
-const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
+
+const Formulario = ({data, SetData, dataFilter, SetDataFilter, SetError, SetExito}) => {
  
 
   const [nombre, setNombre] = useState("");
@@ -10,17 +10,21 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
   const [edad, setEdad] = useState("");
   const [cargo, setCargo] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [error, setError] = useState(false);
-  const [exito, setExito] = useState(false);
 
   const validarDatos = (e) => {
     e.preventDefault();
  
     if (nombre === "" || email === "" || edad === "" || cargo === "" || telefono === "") {
-      setError(true);
-      setExito(false);
+      SetError({
+        error: true,
+        msg: "Completa todos los campos necesarios",
+        color: "warning",
+      })
+      SetExito({ exito: false, msg: "", color: "" });
       return;
-    }
+    } 
+
+    SetExito({ exito: true, msg: "Datos agregados exitosamente", color: "success"  });
 
     SetData([ 
         ...data,
@@ -39,8 +43,8 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
     //     { id: String(data.length + 1), nombre, correo: email, edad, cargo, telefono },
     //   ]);    
 
-    setExito(true);
-    setError(false);
+    // SetExito(false);
+    SetError(false);
     setNombre("");
     setEmail("");
     setEdad("");
@@ -52,9 +56,10 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
   return (
     <>
       <div className="col-xs-6 col-md-4">
+      <h4>Ingreso Colaborador</h4>
         <form onSubmit={validarDatos}>
-          {error ? <p>Todos los campos son obligatorios</p> : null}
-          {exito ? <p>Ok</p> : null}
+          {/* {error ? <p>Todos los campos son obligatorios</p> : null}
+          {exito ? <p>Ok</p> : null} */}
           <div className="mb-3">
             <input
               type="text"
@@ -110,7 +115,6 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter}) => {
               Agregar Colaborador
             </button>
           </div>
-          <Alert/>
         </form>
       </div>
     </>

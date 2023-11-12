@@ -1,9 +1,16 @@
-import React from 'react'
+import React from "react";
 
-export const Alert = () => {
+export const Alert = ({ error, msg, color}) => {
   return (
     <>
-        <h1>...</h1>
+      {(error || (msg && color))  ? (
+        <div className="alert-area">
+          <div className={`alert alert-${color}`} role="alert">
+            {msg}
+          </div>
+        </div>
+      ) : null}
+
     </>
-  )
-}
+  );
+};
