@@ -72,7 +72,7 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter, SetError, SetExit
           </div>
           <div className="mb-3">
             <input
-              type="text"
+              type="email"
               name="email"
               className="form-control"
               placeholder="Email"
@@ -82,7 +82,7 @@ const Formulario = ({data, SetData, dataFilter, SetDataFilter, SetError, SetExit
           </div>
           <div className="mb-3">
             <input
-              type="text"
+              type="number"
               name="edad"
               placeholder="Edad"
               className="form-control"
